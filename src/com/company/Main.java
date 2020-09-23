@@ -1,23 +1,33 @@
 package com.company;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
     public static void main(String[] args) {
-        Map <String, String> value = new HashMap<>();
-        value.put("Guitar", "Instrument");
-        value.put("Mouse", "Animal");
-        value.put("Bear", "Toy");
+        ArrayList<String> arrayList = new ArrayList<>(Arrays.asList("Mouse", "Rodent", "Animal"));
+        ArrayList<String> arrayListSecond = new ArrayList<>(Arrays.asList("Music", "Pop", "Hip-Hop"));
+        ArrayList<String> arrayListThird = new ArrayList<>(Arrays.asList("Toy", "Dol", "Car"));
+        ArrayList[] arrayLists = {arrayList, arrayListSecond, arrayListThird};
         Scanner scanner = new Scanner(System.in);
         String word = scanner.next();
-        for (Map.Entry<String, String> item : value.entrySet()) {
-            if (word.equals(item.getKey()))
-                System.out.println(item.getValue());
-            else if (word.equals(item.getValue()))
-                System.out.println(item.getKey());
+        for (ArrayList item : arrayLists) {
+            if (item.contains(word))
+                chanceTwo(item, word);
         }
+    }
+
+    public static void chanceTwo(ArrayList<String> arrayList, String word) {
+        Map<String, ArrayList<String>> value = new HashMap<>();
+        if (arrayList.contains(word)) {
+            arrayList.remove(word);
+            value.put(word, arrayList);
+        } else {
+            chanceTwo(arrayList, word);
+        }
+        Random random = new Random();
+        int index = random.nextInt(value.size() + 1);
+        System.out.println(value.get(word).get(index));
+        System.out.println(value);
     }
 }
